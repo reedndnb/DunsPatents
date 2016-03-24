@@ -1,8 +1,26 @@
 import csv
 
-def triple(subject, predicate, object):
-    return "<%s>, <%s>, <%s>" % (subject, predicate, object)
+COMPANY_URI = 'http://dnb.com/duns/%s'
+PUB_URI = 'http://dnb.com/patents/publication/%s'
 
+def triple_object(subject, predicate, object):
+    return "<%s> <%s> <%s> ." % (subject, predicate, object)
+
+def print_triple_object(subject, predicate, object):
+    triple = triple_object(subject, predicate, object)
+    if triple:
+        print(triple)
+
+def triple_literal(subject, predicate, value):
+    if not value:
+        return
+    return "<%s> <%s> \"%s\" ." % (subject, predicate, value.strip())
+
+def print_triple_literal(subject, predicate, value):
+    triple = triple_literal(subject, predicate, value)
+    if triple:
+        print(triple)
+  
 def company_triples(duns, name, pub_id, relationship):
     t1 = "<http://dnb.com/company/%s>, <http://dnb.com/patents/publication/%s>, <'http://dnb.com/patent/pubid/%s'>" % (duns, relationship, pub_id)
     t2 = "<http://dnb.com/company/%s>, <http://dnb.com/company/name>, '%s'" % (duns, name)
